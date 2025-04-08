@@ -11,7 +11,7 @@
     <script>
       async function sendTTS() {
         const text = document.getElementById("text").value;
-        const res = await fetch("http://8lsd92aza1q85o/tts", {
+        const res = await fetch("https://h5qz6zrfk0iep4-serverless.runpod.io/tts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text })

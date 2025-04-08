@@ -1,1 +1,1 @@
-from main import app  # Just importing FastAPI app
+from main import app
