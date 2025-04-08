@@ -1,20 +1,13 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
 import uuid
-from kokoro.tts_model import TTSModel  # Ensure this import is correct
+from kokoro.tts_model import TTSModel  # Assuming you have kokoro installed properly
 
 app = FastAPI()
-
-# Load the TTS model
-model = TTSModel.load_pretrained("kokoro-small")  # Adjust as necessary
+model = TTSModel.load_pretrained("kokoro-small")  # Customize as needed
 
 @app.post("/tts")
-async def tts_endpoint(request: Request):
-    data = await request.json()
-    text = data.get("text", "")
-    if not text:
-        return {"error": "Text is required"}
-
-    output_file = f"/tmp/{uuid.uuid4()}.wav"
-    model.synthesize(text, output_file)
-    return FileResponse(output_file, media_type="audio/wav", filename="output.wav")
+async def synthesize(text: str):
+    output_path = f"{uuid.uuid4()}.mp3"
+    model.synthesize(text, output_path)
+    return FileResponse(output_path, media_type="audio/mp3", filename="output.mp3")
