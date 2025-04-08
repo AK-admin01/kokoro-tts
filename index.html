@@ -1,0 +1,26 @@
+<!-- ui/index.html -->
+<!DOCTYPE html>
+<html>
+  <head><title>Kokoro TTS</title></head>
+  <body>
+    <h2>Kokoro TTS</h2>
+    <textarea id="text" rows="4" cols="40" placeholder="Enter text..."></textarea><br>
+    <button onclick="sendTTS()">Synthesize</button><br><br>
+    <audio id="player" controls></audio>
+
+    <script>
+      async function sendTTS() {
+        const text = document.getElementById("text").value;
+        const res = await fetch("http://8lsd92aza1q85o/tts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+
+        const blob = await res.blob();
+        const audioURL = URL.createObjectURL(blob);
+        document.getElementById("player").src = audioURL;
+      }
+    </script>
+  </body>
+</html>
